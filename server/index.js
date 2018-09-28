@@ -1,22 +1,55 @@
-var express = require ('express');
-var app = express ();
-var db = require ('../database/index.js');
-const path = require ('path');
-var cors = require ('cors');
+const express = require('express');
+const bodyParser = require('body-parser');
+const path = require('path');
+const { getRelatedArtists, postNewArtist, editArtist, deleteArtist } = require('../database/index.js');
+const cors = require('cors');
+const server = express();
 
-app.use (cors ());
-app.use (express.static (path.join (__dirname + '/../public')));
+server.use(bodyParser.json());
+server.use(cors());
+server.use(express.urlencoded({ extended: true }));
+server.use(express.static(path.join(__dirname, '../public')));
 
-app.get (`/artist/:id/relatedArtists`, (req, res) => {
-  db.getRelatedArtists (req.params.id, (error, data) => {
+server.get(`/relatedArtists/artist/:id`, (req, res) => {
+  getRelatedArtists (req.params.id, (error, data) => {
     if (error) {
-      res.status (503).send (error);
+      res.status(400).send(error);
     } else {
-      res.send (data);
+      res.send(data);
     }
   });
 });
 
-app.listen (3002, () => {
+server.post(`/relatedArtists/artist/newArtist`, (req, res) => {
+  postNewArtist (req.body.artist, (error, data) => {
+    if (error) {
+      res.status(400).send(error);
+    } else {
+      res.send("Posted!");
+    }
+  });
+});
+
+server.put(`/relatedArtists/artist/:id`, (req, res) => {
+  editArtist (req.params.id, req.body.artist, (error, data) => {
+    if (error) {
+      res.status(400).send(error);
+    } else {
+      res.send("Edited!");
+    }
+  });
+});
+
+server.delete(`/relatedArtists/artist/delete/:id`, (req, res) => {
+  deleteArtist (req.params.id, (error, data) => {
+    if (error) {
+      res.status(400).send(error);
+    } else {
+      res.send("Deleted!");
+    }
+  });
+});
+
+server.listen (3002, () => {
   console.log ('listening on port 3002!');
 });

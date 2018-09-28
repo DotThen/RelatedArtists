@@ -1,59 +1,45 @@
 let mysql = require ('mysql');
-let faker = require ('faker');
+let fs = require('fs');
 
 let connection = mysql.createConnection ({
   host: 'localhost',
   user: 'root',
-  password: 'password',
+  password: 'root',
   database: 'artists',
 });
 
-let results = [];
-for (let k = 0; k < 101; k++) {
-  results.push ({
-    artist_name: faker.name.findName (),
-    listeners: faker.random.number (),
-    artist_image: `https://s3.amazonaws.com/spotifyphotos/${k % 39 + 1}.jpg`,
-    popularSong: faker.lorem.word (),
-  });
-}
 
-console.log (results[1]);
-
-for (let j = 0; j < results.length; j++) {
-  connection.query (
-    `INSERT INTO artist (artist_name, listeners, artist_image, popularSong) VALUES("${results[j].artist_name}", "${results[j].listeners}", "${results[j].artist_image}", "${results[j].popularSong}")`,
-    function (error, result, fields) {
-      if (error) {
-        console.log (error);
-      }
-    }
-  );
-}
-
-for (let i = 1; i < 101; i++) {
-  let insertCount = 1;
-  let uniqueIdArr = [];
-  let k = 0;
-  while (k < 10) {
-    let randomId = Math.floor (Math.random () * Math.floor (100));
-    if (randomId === i) {
-      continue;
-    } else {
-      k++;
-      uniqueIdArr.push (randomId);
-    }
-  }
-  console.log ('i= ' + i + '   ' + uniqueIdArr);
-  while (insertCount < 11) {
+console.log('Hi');
+fs.readFile('artistsData-1.json', 'utf8', (err, data) => {
+  if (err) throw err;
+  artists = JSON.parse(data);
+  console.log("Done parsing");
+  for (let j = 0; j < 500000; j++) {
     connection.query (
-      `INSERT INTO relatedArtists (related_Artist_ID, main_Artist_ID) VALUES("${uniqueIdArr[insertCount - 1]}",  ${i})`,
+      `INSERT INTO artist (artist_name, listeners, artist_image, popularSong) VALUES("${artists[j].artist_name}", "${artists[j].listeners}", "${artists[j].artist_image}", "${artists[j].popularSong}")`,
       function (error, result, fields) {
         if (error) {
           console.log (error);
+        } 
+      }
+    );
+  }
+  console.log("Done");
+});
+
+fs.readFile('relatedArtistsData.json', 'utf8', function (err, data) {
+  if (err) throw err;
+  relatedArtists = JSON.parse(data);
+  for (let j = 0; j < relatedArtists.length; j++) {
+    connection.query (
+      `INSERT INTO relatedArtists (related_Artist_ID, main_Artist_ID) VALUES("${relatedArtists[j].related_Artist_ID}", "${relatedArtists[j].main_Artist_ID}")`,
+      function (error, result, fields) {
+        if (error) {
+          console.log (error);
+        } else {
+          console.log("Related Artist Relationship", j, " logged out of ", relatedArtists.length);
         }
       }
     );
-    insertCount++;
   }
-}
+});

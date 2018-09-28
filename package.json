@@ -25,6 +25,7 @@
   "scripts": {
     "start": "nodemon server/index.js",
     "react-dev": "webpack -d --watch",
+    "create-seed-files": "node database/dataFilesGeneration.js",
     "seed": "node database/dataGenerator.js",
     "test": "jest",
     "build": "webpack --config webpack.prod.js"
