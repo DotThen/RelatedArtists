@@ -24,3 +24,22 @@ coverage
 build/
 dist/
 
+## jsondata
+database/jsondata/
+
+## csvdata
+database/csvdata/
+database/pgexports/
+
+## images
+database/images/
+
+## newrelic
+newrelic.js
+
+## Pem-key
+kickstarterintroduction.pem
+
+## Other things to ignore
+dump.rdb
+server/cacheredis.js
