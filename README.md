@@ -6,6 +6,7 @@
 
 |        Member    |Section                    |Repo                         |
 |----------------|-------------------------------|-----------------------------|
+|[shabbyjoon](https://github.com/shabbyjoon) | Related Artists | https://github.com/DotThen/RelatedArtists |
 |[davydhong](https://github.com/davydhong)|Header            |https://github.com/DotThen/Header           |
 |[wissemgamra](https://github.com/wissemgamra) | Albums and Player | https://github.com/DotThen/AlbumListMusicPlayer |
 |[Mac087](https://github.com/Mac087) | Popular Songs | https://github.com/DotThen/PopularSongs |
@@ -14,7 +15,6 @@
 
 <!-- 1. [Usage](#Usage) -->
 <!-- 1. [Requirements](#requirements) -->
-
 1. [Development](#development)
 
 <!-- ## Usage
@@ -26,6 +26,9 @@
 An `nvmrc` file is included if using [nvm](https://github.com/creationix/nvm).
 
 - Node 6.13.0
+- etc -->
+
+## Development
 
 ### Installing Dependencies
 
@@ -40,8 +43,8 @@ npm install
 
 ```sh
   npm run seed
-  npm run react-dev
   npm start
+  npm run react-dev
   npm run test
 ```
 
