@@ -1,6 +1,6 @@
 import React from 'react';
-import PopularSong from './PopularSong.jsx';
-import Listeners from './Listeners.jsx';
+import PopularSong from './popularSong.jsx';
+import Listeners from './listeners.jsx';
 import {Image, Grid, Row, Col} from 'react-bootstrap';
 import styles from './styles/relatedArtist.css';
 import CSSModules from 'react-css-modules';

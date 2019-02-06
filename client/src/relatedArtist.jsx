@@ -1,5 +1,5 @@
 import React from 'react';
-import RelatedArtistEntry from './RelatedArtistEntry.jsx';
+import RelatedArtistEntry from './relatedArtistEntry.jsx';
 import styles from './styles/relatedArtist.css';
 import CSSModules from 'react-css-modules';
 
