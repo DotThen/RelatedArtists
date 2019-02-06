@@ -1,5 +1,5 @@
 import React from 'react';
-import RelatedArtists from './relatedArtist.jsx';
+import RelatedArtists from './RelatedArtist.jsx';
 import CSSModules from 'react-css-modules';
 import styles from './styles/relatedArtist.css';
 import axios from 'axios';
